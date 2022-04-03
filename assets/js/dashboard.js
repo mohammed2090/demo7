@@ -273,6 +273,7 @@ $("#tab-2").click(function(){
 $("#tab-3").click(function(){
   $("#pagelink").text("Reports");
   $("#pgTitle").text("Reports");
+
 })
 $("#tab-4").click(function(){
   $("#pagelink").text("Gates Management");
@@ -399,6 +400,58 @@ function LIST_GATE(){
        </div>`);
      
       });
+
+      if(data.count == 0){
+        $("#GatesDiv").append(`<div class="col-lg-12" id="">
+        <!--begin::Summary-->
+        <div class="card card-flush h-lg-100">
+          <!--begin::Card header-->
+          <div class="card-header mt-6">
+            <!--begin::Card title-->
+            <div class="card-title flex-column">
+              
+              <h3 class="fw-bolder mb-1">No Gates</h3>
+              
+            </div>
+            <!--end::Card title-->
+            <!--begin::Card toolbar-->
+            <div tooltip="FullScreen" class="card-toolbar">
+              <a href="#" onclick="" tooltip="Open" class="btn btn-light btn-sm"><i class="fa fa-arrows-alt"></i></a>
+              
+            </div>
+            <!--end::Card toolbar-->
+          </div>
+          <!--end::Card header-->
+          <!--begin::Card body-->
+         <div class="card-body p-9 pt-5">
+            <!--begin::Wrapper-->
+            <a href="#" onclick="" class="custom-list d-flex align-items-center px-5 py-4">
+             <!--begin::Symbol-->
+             <div class="symbol symbol-40px me-5">
+               <span class="symbol-label">
+                 <img src="assets/media/svg/gates/toll-road.png" class="h-50 align-self-center" alt="">
+               </span>
+             </div>
+             <!--end::Symbol-->
+             <!--begin::Description-->
+             <div class="d-flex flex-column flex-grow-1">
+               <!--begin::Title-->
+              
+               <!--end::Title-->
+               <!--begin::Link-->
+               <span class="text-gray-400 fw-bold"></span>
+               <!--end::Link-->
+             </div>
+             <!--begin::Description-->
+           </a>
+            
+         </div>
+          <!--end::Card body-->
+        </div>
+        <!--end::Summary-->
+      </div>`);
+      }
+
     }
   });
 }
@@ -743,6 +796,8 @@ function LIST_All_GATE(){
       </tr>`);
       i++;
       });
+
+      
     }
   });
 }

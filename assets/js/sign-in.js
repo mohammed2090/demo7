@@ -9,6 +9,8 @@ function Login(uname,pass){
         'username': uname,
         'password': pass
     }
+
+    // alert(logindata)
    
     $.ajax({
         type: "POST",
@@ -50,7 +52,8 @@ function Login(uname,pass){
         }
       });
 }
-$("#kt_sign_in_submit").click(function(){
+$("#kt_sign_in_submit").click(function(e){
+    e.preventDefault();
     var uname = $("#usernametxt").val();
     var pass = $("#passwordtxt").val();
 

@@ -611,7 +611,7 @@
 										</div>
 										<!--end::Tab pane-->
 										<!--begin::Tab pane Reports-->
-										<div class="tab-pane fade" id="kt_aside_nav_tab_subscription" role="tabpanel">
+										<div class=" d-none tab-pane fade" id="kt_aside_nav_tab_subscription" role="tabpanel">
 											<!--begin::Subscription-->
 											<div class="mx-5">
 												<!--begin::Container-->
@@ -639,7 +639,7 @@
 										</div>
 										<!--end::Tab pane-->
 										<!--begin::Tab pane-->
-										<div class="tab-pane fade" id="kt_aside_nav_tab_tasks" role="tabpanel">
+										<div class=" d-none tab-pane fade" id="kt_aside_nav_tab_tasks" role="tabpanel">
 											<!--begin::Tasks-->
 											<div class="mx-5">
 												<!--begin::Header-->
@@ -682,7 +682,7 @@
 										</div>
 										<!--end::Tab pane-->
 										<!--begin::Tab pane-->
-										<div class="tab-pane fade" id="kt_aside_nav_tab_notifications" role="tabpanel">
+										<div class="tab-pane fade d-none" id="kt_aside_nav_tab_notifications" role="tabpanel">
 											<!--begin::Notifications-->
 											<div class="mx-5">
 												<!--begin::Header-->
@@ -798,7 +798,7 @@
 										</div>
 										<!--end::Tab pane-->
 										<!--begin::Tab pane-->
-										<div class="tab-pane fade" id="kt_aside_nav_tab_authors" role="tabpanel">
+										<div class="tab-pane fade d-none" id="kt_aside_nav_tab_authors" role="tabpanel">
 											<!--begin::Authors-->
 											<div class="mx-5">
 												<!--begin::Header-->
@@ -916,7 +916,7 @@
 											</div>
 											<!--end::Authors-->
 										</div>
-										<div class="tab-pane fade" id="kt_aside_nav_tab_Setting" role="tabpanel">
+										<div class="tab-pane fade d-none" id="kt_aside_nav_tab_Setting" role="tabpanel">
 											<!--begin::Notifications-->
 											<div class="mx-5">
 												<!--begin::Header-->
@@ -5320,6 +5320,9 @@
 		<!-- <script src="assets/js/custom/utilities/modals/users-search.js"></script> -->
 		<!--end::Page Custom Javascript-->
 		<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 		<script src="assets/js/dashboard.js"></script>
 		<!--end::Javascript-->
 	</body>
@@ -5327,6 +5330,7 @@
 
 <script>
 	$(document).ready(function(){
+		const swal = require('sweetalert2')
 		$("#kt_daterangepicker_1").daterangepicker();
 		ImgUpload();
 		$('.tab-link').click(function(){
