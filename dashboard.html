@@ -5321,8 +5321,9 @@
 		<!--end::Page Custom Javascript-->
 		<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+		
 		<script src="assets/js/dashboard.js"></script>
 		<!--end::Javascript-->
 	</body>
@@ -5330,7 +5331,7 @@
 
 <script>
 	$(document).ready(function(){
-		const swal = require('sweetalert2')
+		// const swal = require('sweetalert2')
 		$("#kt_daterangepicker_1").daterangepicker();
 		ImgUpload();
 		$('.tab-link').click(function(){
@@ -5405,6 +5406,43 @@ if (navigator.mediaDevices.getUserMedia) {
 //     .catch(function (err0r) {
 //       console.log("Something went wrong!");
 //     });
+}
+
+function SuccessAlert(msg){
+	swal(
+				'Success',
+				msg,
+				'success'
+		);
+}
+function ErrorAlert(msg){
+	swal(
+				'Error!',
+				msg,
+				'error'
+			)
+}
+function WarningAlert(msg){
+	swal(
+				'Warning!',
+				msg,
+				'warning'
+			)
+}
+function InfoAlert(msg){
+	swal(
+				'Info!',
+				msg,
+				'info'
+			)
+}
+
+function QuestionAlert(msg){
+	swal(
+				'Question!',
+				msg,
+				'question'
+			)
 }
 </script>
 </html>

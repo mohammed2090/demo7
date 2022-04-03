@@ -59,7 +59,8 @@ function auth(){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        
+        ErrorAlert("page not found")
       }
     },
     error: function(jqXHR, textStatus, ex) {
@@ -68,14 +69,16 @@ function auth(){
         if(!jqXHR.responseText){
           window.location.href = 'sign-in.html';
         }else{
-          alert(jqXHR.responseText);
+          // alert(jqXHR.responseText);
+          ErrorAlert(jqXHR.responseText)
         }
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
           window.location.href = 'sign-in.html';
         }else{
-          alert("Check your Internet Connection")
+          // alert("Check your Internet Connection")
+          ErrorAlert("Check your Internet Connection")
         }
 
     },
@@ -132,11 +135,12 @@ function Logout(){
         datatype: 'JSON',
         statusCode: {
           404: function() {
-            alert("page not found");
+            ErrorAlert("page not found");
+            
           }
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-          alert("some error");
+          ErrorAlert("some error");
           console.log(errorThrown);
        },
         success: function(data) {
@@ -154,12 +158,12 @@ function GetStat(token){
     headers: {Authorization: 'Bearer '+token},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        Erroralert(jqXHR.responseText);
     },
     success: function(data) {
         $("#gateCountlbl").text(data.gate);
@@ -189,12 +193,12 @@ function GetLogs(token){
     headers: {Authorization: 'Bearer '+token},
     statusCode: {
       404: function() {
-        alert("page not found");
+        Erroralert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        Erroralert(jqXHR.responseText);
     },
     success: function(data) {
         $("#kt_profile_overview_table tbody").empty();
@@ -310,12 +314,12 @@ function LIST_GATE(){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        Erroralert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        Erroralert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -471,12 +475,12 @@ function CREATE_GATE(name,desc){
     data:newGate,
     statusCode: {
       404: function() {
-        alert("page not found");
+        Erroralert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        Erroralert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -485,7 +489,7 @@ function CREATE_GATE(name,desc){
 
     },
     success: function(data) {
-      alert(data.message);
+      SuccessAlert(data.message);
       LIST_GATE()
       LIST_All_GATE()
     }
@@ -507,12 +511,12 @@ function UPDATE_GATE(id,name,desc){
     data:newGate,
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -521,7 +525,7 @@ function UPDATE_GATE(id,name,desc){
 
     },
     success: function(data) {
-      alert(data.message);
+      SuccessAlert(data.message);
       LIST_GATE()
       LIST_All_GATE();
     }
@@ -536,12 +540,12 @@ function Staff_gate(){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -565,12 +569,12 @@ function OpenGate(gid){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -726,12 +730,12 @@ function LIST_All_GATE(){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -823,12 +827,12 @@ function deleteGate(gid,name){
       headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
       statusCode: {
         404: function() {
-          alert("page not found");
+          ErrorAlert("page not found");
         }
       },
       error: function(jqXHR, textStatus, ex) {
           console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-          alert(jqXHR.responseText);
+          ErrorAlert(jqXHR.responseText);
           var resArr= JSON.parse(jqXHR.responseText);
           if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
             localStorage.clear();
@@ -837,7 +841,7 @@ function deleteGate(gid,name){
   
       },
       success: function(data) {
-        alert(data.message);
+        SuccessAlert(data.message);
         LIST_GATE()
         LIST_All_GATE();
       }
@@ -855,12 +859,12 @@ function LIST_CAMERA(){
      headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
      statusCode: {
        404: function() {
-         alert("page not found");
+        ErrorAlert("page not found");
        }
      },
      error: function(jqXHR, textStatus, ex) {
          console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-         alert(jqXHR.responseText);
+         ErrorAlert(jqXHR.responseText);
          var resArr= JSON.parse(jqXHR.responseText);
          if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
            localStorage.clear();
@@ -938,12 +942,12 @@ function LIST_CAMERA(){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -1009,12 +1013,12 @@ function LIST_All_VISITOR(){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -1141,12 +1145,12 @@ function CREATE_VISITOR(formdatat){
     data: formdatat,
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -1155,7 +1159,7 @@ function CREATE_VISITOR(formdatat){
 
     },
     success: function(data) {
-      alert(data.message);
+      SuccessAlert(data.message);
       
       LIST_All_VISITOR()
     }
@@ -1207,12 +1211,12 @@ function UPDATE_VISITOR(vid,visname,visadd,visNid,visjob,visstatus,reason_of_vis
     data:newVis,
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -1221,7 +1225,7 @@ function UPDATE_VISITOR(vid,visname,visadd,visNid,visjob,visstatus,reason_of_vis
 
     },
     success: function(data) {
-      alert(data.message);
+      SuccessAlert(data.message);
       $("#visImgContainer").empty();
       LIST_All_VISITOR();
     }
@@ -1239,12 +1243,12 @@ function deleteVisitor(vid,name){
       headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
       statusCode: {
         404: function() {
-          alert("page not found");
+          ErrorAlert("page not found");
         }
       },
       error: function(jqXHR, textStatus, ex) {
           console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-          alert(jqXHR.responseText);
+          ErrorAlert(jqXHR.responseText);
           var resArr= JSON.parse(jqXHR.responseText);
           if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
             localStorage.clear();
@@ -1253,7 +1257,7 @@ function deleteVisitor(vid,name){
   
       },
       success: function(data) {
-        alert(data.message);
+        SuccessAlert(data.message);
         
         LIST_All_VISITOR();
       }
@@ -1271,12 +1275,12 @@ function RETREIVE_VISITOR(vid){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -1302,12 +1306,12 @@ function LIST_All_CAR(){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -1426,12 +1430,12 @@ function CREATE_CAR(formdatat){
     data: formdatat,
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -1440,7 +1444,7 @@ function CREATE_CAR(formdatat){
 
     },
     success: function(data) {
-      alert(data);
+      SuccessAlert(data);
       
       LIST_All_CAR()
     }
@@ -1492,12 +1496,12 @@ function UPDATE_CAR(carid,carmodel,carcolor,carplate,carvisitor,carstatus,carimg
     data: form,
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -1506,7 +1510,7 @@ function UPDATE_CAR(carid,carmodel,carcolor,carplate,carvisitor,carstatus,carimg
 
     },
     success: function(data) {
-      alert(data);
+      SuccessAlert(data);
       $("#carImgContainer").empty();
       LIST_All_CAR();
     }
@@ -1522,12 +1526,12 @@ function deleteCar(carid,plate_number){
       headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
       statusCode: {
         404: function() {
-          alert("page not found");
+          ErrorAlert("page not found");
         }
       },
       error: function(jqXHR, textStatus, ex) {
           console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-          alert(jqXHR.responseText);
+          ErrorAlert(jqXHR.responseText);
           var resArr= JSON.parse(jqXHR.responseText);
           if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
             localStorage.clear();
@@ -1536,7 +1540,7 @@ function deleteCar(carid,plate_number){
   
       },
       success: function(data) {
-        alert(data.message);
+        SuccessAlert(data.message);
         
         LIST_All_CAR();
       }
@@ -1554,12 +1558,12 @@ function LIST_All_USER(){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -1727,7 +1731,7 @@ function CREATE_USER(userObj){
   
   $.ajax(settings).done(function (response) {
     // console.log(response);
-    alert(response.message);
+    SuccessAlert(response.message);
     LIST_All_USER()
   });
   
@@ -1789,7 +1793,7 @@ function UPDATE_USER(userid,usrDname,usrpass,gates,usrmail,is_admin,is_operation
   
   $.ajax(settings).done(function (response) {
     // console.log(response);
-    alert(response.message);
+    SuccessAlert(response.message);
     LIST_All_USER()
   });
   
@@ -1804,12 +1808,12 @@ function deleteStaff(userid,name){
       headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
       statusCode: {
         404: function() {
-          alert("page not found");
+          ErrorAlert("page not found");
         }
       },
       error: function(jqXHR, textStatus, ex) {
           console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-          alert(jqXHR.responseText);
+          ErrorAlert(jqXHR.responseText);
           var resArr= JSON.parse(jqXHR.responseText);
           if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
             localStorage.clear();
@@ -1818,7 +1822,7 @@ function deleteStaff(userid,name){
   
       },
       success: function(data) {
-        alert(data.message);
+        SuccessAlert(data.message);
         
         LIST_All_USER();
         
@@ -1838,12 +1842,12 @@ function LIST_All_CAMERA(){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -1945,12 +1949,12 @@ function CREATE_CAMERA(camObj){
     data:camObj,
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -1959,7 +1963,7 @@ function CREATE_CAMERA(camObj){
 
     },
     success: function(data) {
-      alert(data.message);
+      SuccessAlert(data.message);
       LIST_All_CAMERA();
       LIST_All_GATE();
     }
@@ -1996,12 +2000,12 @@ $.ajax({
   data: newcam,
   statusCode: {
     404: function() {
-      alert("page not found");
+      ErrorAlert("page not found");
     }
   },
   error: function(jqXHR, textStatus, ex) {
       console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-      alert(jqXHR.responseText);
+      ErrorAlert(jqXHR.responseText);
       var resArr= JSON.parse(jqXHR.responseText);
       if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
         localStorage.clear();
@@ -2010,7 +2014,7 @@ $.ajax({
 
   },
   success: function(data) {
-    alert(data.message);
+    SuccessAlert(data.message);
     
     LIST_All_CAMERA();
     LIST_All_GATE();
@@ -2027,12 +2031,12 @@ if(confirm("Are you sure , Delete Camera "+name + "?")){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -2041,7 +2045,7 @@ if(confirm("Are you sure , Delete Camera "+name + "?")){
 
     },
     success: function(data) {
-      alert(data.message);
+      SuccessAlert(data.message);
       
       LIST_All_CAMERA();
       LIST_All_GATE();
@@ -2061,12 +2065,12 @@ function LIST_All_REPORTS(){
     headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -2116,12 +2120,12 @@ function Generate_REPORT(type_id,start,end){
   },
     statusCode: {
       404: function() {
-        alert("page not found");
+        ErrorAlert("page not found");
       }
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        alert(jqXHR.responseText);
+        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
@@ -2148,12 +2152,12 @@ $.ajax({
   headers: {Authorization: 'Bearer '+localStorage.getItem('token')},
   statusCode: {
     404: function() {
-      alert("page not found");
+      ErrorAlert("page not found");
     }
   },
   error: function(jqXHR, textStatus, ex) {
       console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-      alert(jqXHR.responseText);
+      ErrorAlert(jqXHR.responseText);
       var resArr= JSON.parse(jqXHR.responseText);
       if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
         localStorage.clear();
@@ -2203,3 +2207,9 @@ $(".toggle-password").click(function() {
     x.type = "password";
   }
 });
+
+// GAlert('Success',)
+// GAlert('Error',)
+// GAlert('Warning',)
+// GAlert('Info',)
+// GAlert('Question',)
