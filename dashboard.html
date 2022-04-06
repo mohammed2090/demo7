@@ -22,9 +22,14 @@
 		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>	
-		<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap" rel="stylesheet">
+		<!-- <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap" rel="stylesheet"> -->
+		
 		<link rel="stylesheet" href="assets/css/snipper.css">
 		<style>
+			body{
+				font-family: 'Lato', sans-serif !important;
+				src: url('assets/fonts/Lato-Light.ttf');
+			}
 			.field-icon {
 				float: right;
 				margin-left: -25px;
@@ -183,7 +188,7 @@
 									<!--begin::Nav item-->
 									<li class="nav-item mb-2 tab-link" id="tab-1" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="right" data-div="GatesDiv" data-bs-dismiss="click" title="Gates">
 										<!--begin::Nav link-->
-										<a class="nav-link btn btn-icon btn-active-color-primary btn-color-gray-400 btn-active-light active" data-bs-toggle="tab" href="#kt_aside_nav_tab_projects">
+										<a class="nav-link btn btn-icon btn-active-color-primary btn-color-gray-400 btn-active-light " data-bs-toggle="tab" href="#kt_aside_nav_tab_projects">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
 											<span class="svg-icon svg-icon-2x">
 												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -987,7 +992,7 @@
 					</div>
 					<!--end::Secondary-->
 					<!--begin::Aside Toggle-->
-					<button class="btn btn-sm btn-icon bg-body btn-color-gray-700 btn-active-primary position-absolute translate-middle start-100 end-0 bottom-0 shadow-sm d-none d-lg-flex" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="aside-minimize" style="margin-bottom: 1.35rem">
+					<button id="asside-btn" class="btn btn-sm btn-icon bg-body btn-color-gray-700 btn-active-primary position-absolute translate-middle start-100 end-0 bottom-0 shadow-sm d-none d-lg-flex" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="aside-minimize" style="margin-bottom: 1.35rem">
 						<!--begin::Svg Icon | path: icons/duotune/arrows/arr063.svg-->
 						<span class="svg-icon svg-icon-2 rotate-180">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -1940,11 +1945,11 @@
 							<div class="col-lg-6 m-4">
 								<label class="form-label">Report Type</label>
 								<select class="form-select form-select-solid select2-hidden-accessible p-3" id="reportSlct" data-control="select2" data-hide-search="false" data-select2-id="select2-data-10-e4d8" tabindex="-1" aria-hidden="true">
-									<option value="">Select Report</option>
-									<option value="1">Visitor</option>
-									<option value="2">CAR</option>
-									<option value="3">VisitorTrace</option>
-									<option value="4">Gate</option>
+									<option disabled value="">Select Report</option>
+									<option value="GATE">Gate</option>
+									<option value="CAR">CAR</option>
+									<option value="VisitorTrace">VisitorTrace</option>
+									<option value="VISITOR">Visitor</option>
 								</select>
 								
 								<!--end::Select-->
@@ -1962,7 +1967,7 @@
 						<div class="row">
 							<div class="col-lg-12 text-center">
 								<a href="#" class="btn btn-primary" id="generateBtn">Generate</a>
-								<a href="#" class="btn btn-danger"  id="generateBtn">Clear</a>
+								<a href="#" class="btn btn-danger"  id="clearrepeBtn">Clear</a>
 							</div>
 						</div>
 
@@ -1986,7 +1991,7 @@
 											<!--begin::Table head-->
 											<thead>
 												<tr class="border-0 fs-2 text-center">
-													<th class="p-0">Creation Date</th>
+													
 													<th class="p-0 min-w-150px">From</th>
 													<th class="p-0 min-w-200px">To</th>
 													<th class="p-0 min-w-150px">Type</th>
@@ -2291,7 +2296,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-12">
-									<table  class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+									<table  class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 ">
 										<thead class=" text-dark bg-primary">
 											<tr class="fw-bolder ">
 												<td>#</td>
@@ -2704,7 +2709,7 @@
 												<td>#</td>
 												<td>Name</td>
 												<td>Address</td>
-												<td>Desc.</td>
+												<td>Status.</td>
 												<td>ID</td>
 												<td>edit</td>
 												<td>Remove</td>
@@ -4547,7 +4552,7 @@
 											<!--end::Label-->
 											<!--end::Input-->
 											<select name="carstatus" id="carstatus" data-control="select2" data-hide-search="true" class="form-select form-select-solid form-select-sm fw-bolder">
-												<option value="0" selected="selected">Status</option>
+												<option value="0" disabled selected="selected">Status</option>
 												<option value="1">Active</option>
 												<option value="2">Pending</option>
 												<option value="3">Rejected</option>
@@ -4577,6 +4582,8 @@
 									</div>
 									<!--end::Input group-->
 									<!--begin::Submit-->
+									<label id="carmsgerror" class="d-none fs-2 fs-5 fw-bold mb-2 mt-4 text-danger">error.</label>
+									<br>
 									<button type="submit" class="btn btn-primary btn-twitter" id="">
 										<!--begin::Indicator-->
 										<span class="indicator-label">Save</span>
@@ -4722,6 +4729,8 @@
 									</div>
 									<!--end::Input group-->
 									<!--begin::Submit-->
+									<label id="visitormsgerror" class="d-none fs-2 fs-5 fw-bold mb-2 mt-4 text-danger">error.</label>
+									<br>
 									<button type="submit" class="btn btn-primary btn-twitter" id="addnewVisBtn">
 										<!--begin::Indicator-->
 										<span class="indicator-label">Save</span>
@@ -4826,6 +4835,8 @@
 												<option value="4">Gate 3</option>
 											</select>
 											<!--end::Input-->
+
+											<label id="cammsgerror" class="d-none fs-2 fs-5 fw-bold mb-2 mt-4 text-danger">error.</label>
 										</div>
 										<!--end::Col-->
 									</div>
@@ -4923,7 +4934,14 @@
 										<!--begin::Input-->
 										<textarea id="gateDesc" name="gateDesc" class="form-control form-control-solid mb-8" rows="3" placeholder="Type or paste Desc here"></textarea>
 										<!--end::Input-->
+										<label id="gatemsgerror" class="fs-5 fw-bold mb-2 text-danger">error.</label>
+
 									</div>
+									
+										
+										
+										
+									
 									
 									<!--begin::Submit-->
 									<button type="submit" class="btn btn-primary btn-twitter" id="addnewGateBtn">
@@ -5023,6 +5041,7 @@
 											<!--end::Label-->
 											<!--end::Input-->
 											<input type="password" class="form-control form-control-solid" placeholder="" id="usrconpass" name="usrconpass" />
+											<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password1"></span>
 										</div>
 										<!--end::Col-->
 										<div id="passmsg"></div>
@@ -5059,8 +5078,8 @@
 												<!--end::Radio-->
 												<!--begin::Info-->
 												<div class="flex-grow-1">
-													<h2 class="d-flex align-items-center fs-2 fw-bolder flex-wrap">Admin 
-													<span class="badge badge-light-success ms-2 fs-7">Full Controll</span></h2>
+													<h4 class="d-flex align-items-center fs-2 fw-bolder flex-wrap">Admin 
+													<span class="badge badge-light-success ms-2 fs-7">Full Controll</span></h4>
 													<!-- <div class="fw-bold opacity-50">Best value for 1000+ team</div> -->
 												</div>
 												<!--end::Info-->
@@ -5073,8 +5092,8 @@
 												<!--end::Radio-->
 												<!--begin::Info-->
 												<div class="flex-grow-1">
-													<h2 class="d-flex align-items-center fs-2 fw-bolder flex-wrap">Operation 
-													<span class="badge badge-light-success ms-2 fs-7">Item Controll</span></h2>
+													<h4 class="d-flex align-items-center fs-2 fw-bolder flex-wrap">Operation 
+													<span class="badge badge-light-success ms-2 fs-7">Item Controll</span></h4>
 													<!-- <div class="fw-bold opacity-50">Best value for 1000+ team</div> -->
 												</div>
 												<!--end::Info-->
@@ -5087,8 +5106,8 @@
 												<!--end::Radio-->
 												<!--begin::Info-->
 												<div class="flex-grow-1">
-													<h2 class="d-flex align-items-center fs-2 fw-bolder flex-wrap">Supervisior 
-													<span class="badge badge-light-success ms-2 fs-7">Controll Gate Or More</span></h2>
+													<h4 class="d-flex align-items-center fs-2 fw-bolder flex-wrap">Supervisior 
+													<span class="badge badge-light-success ms-2 fs-7">Controll Gate Or More</span></h4>
 													<!-- <div class="fw-bold opacity-50">Best value for 1000+ team</div> -->
 												</div>
 												<!--end::Info-->
@@ -5101,8 +5120,8 @@
 												<!--end::Radio-->
 												<!--begin::Info-->
 												<div class="flex-grow-1">
-													<h2 class="d-flex align-items-center fs-2 fw-bolder flex-wrap">Guard 
-													<span class="badge badge-light-success ms-2 fs-7">Controll One Gate</span></h2>
+													<h4 class="d-flex align-items-center fs-2 fw-bolder flex-wrap">Guard 
+													<span class="badge badge-light-success ms-2 fs-7">Controll One Gate</span></h4>
 													<!-- <div class="fw-bold opacity-50">Best value for 1000+ team</div> -->
 												</div>
 												<!--end::Info-->
@@ -5129,6 +5148,8 @@
 											<input class="form-check-input w-60px" name="usrActive" id="usrActive" type="checkbox" value="1" checked="checked" />
 											<span class="form-check-label fw-bold text-muted">Active</span>
 										</label>
+
+										<label id="usermsgerror" class="d-none fs-2 fs-5 fw-bold mb-2 mt-4 text-danger">error.</label>
 									</div>
 									<!--begin::Submit-->
 									<button type="submit" class="btn btn-primary btn-twitter" id="">
@@ -5204,29 +5225,29 @@
 						<form action="#" class="form mb-15" method="post" id="">
 							<!-- <h1 class="fw-bolder text-dark mb-9">Create New Car</h1> -->
 							<!--begin::Input group-->
-							<div class="row mb-5">
+							<div class=" row mb-5">
 								<!--begin::Col-->
 								<div class="col-md-6 fv-row">
 									<!--begin::Label-->
-									<label class="fs-5 fw-bold mb-2">Display Name</label>
+									<label class="fs-5 fw-bold mb-2">New Password</label>
 									<!--end::Label-->
 									<!--begin::Input-->
-									<input type="text" class="form-control form-control-solid" placeholder="" name="usrDname" />
+									<input type="text" class="form-control form-control-solid" placeholder="" name="Pusrpass" id="Pusrpass" />
 									<!--end::Input-->
 								</div>
 								<!--end::Col-->
 								<!--begin::Col-->
 								<div class="col-md-6 fv-row">
 									<!--end::Label-->
-									<label class="fs-5 fw-bold mb-2">email</label>
+									<label class="fs-5 fw-bold mb-2">Confirm Password</label>
 									<!--end::Label-->
 									<!--end::Input-->
-									<input type="email" class="form-control form-control-solid" placeholder="" name="usrmail" />
+									<input type="email" class="form-control form-control-solid" placeholder="" name="PusrCpass" id="PusrCpass" />
 									<!--end::Input-->
 								</div>
 								<!--end::Col-->
 							</div>
-							<div class="row mb-5">
+							<div class="d-none row mb-5">
 								<!--begin::Col-->
 								<div class="col-md-6 fv-row">
 									<!--begin::Label-->
@@ -5247,7 +5268,7 @@
 								</div>
 								<!--end::Col-->
 							</div>
-							<div class="row mb-5">
+							<div class="d-none row mb-5">
 								<!--begin::Col-->
 								<div class="col-md-6 fv-row">
 									<!--begin::Label-->

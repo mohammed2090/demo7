@@ -1,7 +1,7 @@
 var Apphost = "http://147.182.164.139:8000/login/";
 $(document).ready(function(){
     localStorage.clear();
-        
+    $("#signerror").text("");
 });
 function Login(uname,pass){
     var logindata = 
@@ -25,10 +25,12 @@ function Login(uname,pass){
         error: function(jqXHR, textStatus, ex) {
             console.log(textStatus + "," + ex + "," + jqXHR.responseText);
             if(jqXHR.responseText == 'undefined'){
-              alert("Check your Connection , try Again!! ");
+              $("#signerror").removeClass('d-none');
+              $("#signerror").text("Check your Connection , try Again!! ")
               // $("#logmessage").text("Check your Connection , try Again!! ");
             }else{
-              alert(jqXHR.responseText);
+              $("#signerror").removeClass('d-none');
+              $("#signerror").text(JSON.parse(jqXHR.responseText).message);
               // $("#logmessage").text(jqXHR.responseText);
             }
             
@@ -46,7 +48,8 @@ function Login(uname,pass){
               window.location.href = 'dashboard.html';
             }else{
               alert("Inactive User , contact Admin To Active");
-              $("#logmessage").text("Inactive User , contact Admin To Active");
+              $("#signerror").removeClass('d-none');
+              $("#signerror").text("Inactive User , contact Admin To Active");
             }
             
         }
@@ -57,7 +60,13 @@ $("#kt_sign_in_submit").click(function(e){
     var uname = $("#usernametxt").val();
     var pass = $("#passwordtxt").val();
 
-    Login(uname,pass);
+    if(uname=="" || pass ==""){
+      $("#signerror").removeClass('d-none');
+      $("#signerror").text("You Must Enter Username and Password")
+    }else{
+      Login(uname,pass);
+    }
+    
 })
 
 

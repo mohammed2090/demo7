@@ -32,6 +32,10 @@ $(document).ready(function(){
 $( "#AddNewGatetBtn" ).click(function(){
   $( "#gateAddHead" ).text( "Add New Gate" );
   $("#action").val("insert");
+  $("#gatename").val("");
+  $("#gateDesc").val("");
+  $("#gatemsgerror").addClass("d-none");
+  $("#gatemsgerror").text("")
 } );
   
 
@@ -41,11 +45,18 @@ $("#addnewGateBtn").click(function(e){
   var gateDesc =$("#gateDesc").val();
   var action =$("#action").val();
   var gid =$("#gid").val();
-  if(action == "insert"){
-    CREATE_GATE(gateName,gateDesc);
-  }else if(action == "update"){
-    UPDATE_GATE(gid,gateName,gateDesc)
+
+  if (gateName =="" || gateDesc ==""){
+    $("#gatemsgerror").removeClass("d-none");
+    $("#gatemsgerror").text("You Must Enter Gate Name and Desc")
+  }else{
+    if(action == "insert"){
+      CREATE_GATE(gateName,gateDesc);
+    }else if(action == "update"){
+      UPDATE_GATE(gid,gateName,gateDesc)
+    }
   }
+  
   
 })
 
@@ -70,7 +81,7 @@ function auth(){
           window.location.href = 'sign-in.html';
         }else{
           // alert(jqXHR.responseText);
-          ErrorAlert(jqXHR.responseText)
+          ErrorAlert(JSON.parse(jqXHR.responseText).message)
         }
         var resArr= JSON.parse(jqXHR.responseText);
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
@@ -268,40 +279,51 @@ function ActiveTabs(tabs){
 $("#tab-1").click(function(){
   $("#pagelink").text("Gates");
   $("#pgTitle").text("Gates");
-  
+  $("#asside-btn").addClass('opacity-1');
+  $("#asside-btn").removeClass('opacity-0');
 })
 $("#tab-2").click(function(){
   $("#pagelink").text("Camera");
   $("#pgTitle").text("Camera");
+  $("#asside-btn").addClass('opacity-1');
+  $("#asside-btn").removeClass('opacity-0');
 })
 $("#tab-3").click(function(){
   $("#pagelink").text("Reports");
   $("#pgTitle").text("Reports");
+  $("#asside-btn").addClass('opacity-1');
+  $("#asside-btn").removeClass('opacity-0');
 
 })
 $("#tab-4").click(function(){
   $("#pagelink").text("Gates Management");
   $("#pgTitle").text("Gates Management");
+  $("#asside-btn").addClass('opacity-0');
 })
 $("#tab-5").click(function(){
   $("#pagelink").text("Camera Management");
   $("#pgTitle").text("Camera Management");
+  $("#asside-btn").addClass('opacity-0');
 })
 $("#tab-6").click(function(){
   $("#pagelink").text("Users");
   $("#pgTitle").text("Users");
+  $("#asside-btn").addClass('opacity-0');
 })
 $("#tab-7").click(function(){
   $("#pagelink").text("Visitor");
   $("#pgTitle").text("Visitor");
+  $("#asside-btn").addClass('opacity-0');
 })
 $("#tab-8").click(function(){
   $("#pagelink").text("Cars");
   $("#pgTitle").text("Cars");
+  $("#asside-btn").addClass('opacity-0');
 })
 $("#tab-9").click(function(){
   $("#pagelink").text("Profile");
   $("#pgTitle").text("Profile");
+  $("#asside-btn").addClass('opacity-0');
   GET_USER_PROFILE(localStorage.getItem('User'));
 })
 
@@ -334,7 +356,7 @@ function LIST_GATE(){
 
 
       data.results.forEach(gate => {
-        $("#GateList").append(`<a href= "#" onClick="javascript:OpenGate(${gate.id})" class="custom-list d-flex align-items-center px-5 py-4">
+        $("#GateList").append(`<a gate=${gate.name} href= "#" onClick="javascript:OpenGate(${gate.id})" class="custom-list d-flex align-items-center px-5 py-4">
         <!--begin::Symbol-->
         <div class="symbol symbol-40px me-5">
           <span class="symbol-label">
@@ -345,7 +367,7 @@ function LIST_GATE(){
         <!--begin::Description-->
         <div class="d-flex flex-column flex-grow-1">
           <!--begin::Title-->
-          <h5 class="custom-list-title fw-bold text-gray-800 mb-1">${gate.name}</h5>
+          <h5 id="searchToken" class="custom-list-title fw-bold text-gray-800 mb-1">${gate.name}</h5>
           <!--end::Title-->
           <!--begin::Link-->
           <span class="text-gray-400 fw-bold">${gate.description}</span>
@@ -480,8 +502,14 @@ function CREATE_GATE(name,desc){
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        Erroralert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
+        if(jqXHR.responseText == '{"message":{"name":["Gate with this Name already exists."]}}'){
+          ErrorAlert('Gate with this Name already exists');
+        }else{
+          ErrorAlert('err. ' + resArr.message);
+        }
+        
+        
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
           window.location.href = 'sign-in.html';
@@ -490,6 +518,8 @@ function CREATE_GATE(name,desc){
     },
     success: function(data) {
       SuccessAlert(data.message);
+      $("#gatename").val("");
+      $("#gateDesc").val("");
       LIST_GATE()
       LIST_All_GATE()
     }
@@ -602,7 +632,7 @@ function OpenGate(gid){
                 <!--begin::Card toolbar-->
                 <div class="card-toolbar">
                   <a href="#" class="btn btn-light" onClick="javascript:ToggleFull(camera${cam.id})">Toggle Full Screen</a>
-                  <a href="#" class="btn btn-light-danger" onClick="javascript:catchScr(camcont${cam.id},this)" >Catch</a>
+                  <!--<a href="#" class="btn btn-light-danger" onClick="javascript:catchScr(camcont${cam.id},this)" >Catch</a>-->
                   <a href="#" class="btn btn-linkedin btn-sm" title="Upload">Upload</a>
                 </div>
                 <!--end::Card toolbar-->
@@ -640,7 +670,7 @@ function OpenGate(gid){
                 <!--begin::Card toolbar-->
                 <div class="card-toolbar">
                   <a href="#" class="btn btn-light d-none" onClick="javascript:ToggleFull(camera0)">Toggle Full Screen</a>
-                  <a href="#" class="btn btn-light-danger d-none" onClick="javascript:catchScr(camcont0,this)" >Catch</a>
+                  <!-- <a href="#" class="btn btn-light-danger d-none" onClick="javascript:catchScr(camcont0,this)" >Catch</a>-->
                   <a href="#" class="btn btn-linkedin btn-sm d-none" title="Upload">Upload</a>
                 </div>
                 <!--end::Card toolbar-->
@@ -690,6 +720,7 @@ function ToggleFull(elem){
 
     
   }else{
+
     if (document.exitFullscreen) {
       document.exitFullscreen();
     } else if (document.webkitExitFullscreen) { /* Safari */
@@ -707,6 +738,39 @@ function ToggleFull(elem){
   }
  
 }
+
+$(document).on("keydown",function(ev){
+	
+	if(ev.keyCode===27||ev.keyCode===122) {
+    $(".videoElement").removeClass("h-100");
+    $(".Camcontainer").removeClass("h-75");
+    $(".card-body").removeClass("p-0");
+    $(".card-body").removeClass("m-0");
+    
+  }
+})
+
+if (document.addEventListener)
+{
+ document.addEventListener('fullscreenchange', exitHandler, false);
+ document.addEventListener('mozfullscreenchange', exitHandler, false);
+ document.addEventListener('MSFullscreenChange', exitHandler, false);
+ document.addEventListener('webkitfullscreenchange', exitHandler, false);
+}
+
+function exitHandler()
+{
+ if (!document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement)
+ {
+  $(".videoElement").removeClass("h-100");
+    $(".Camcontainer").removeClass("h-75");
+    $(".card-body").removeClass("p-0");
+    $(".card-body").removeClass("m-0");
+ }
+}
+
+
+
 
 function catchScr(el,par){
   html2canvas(el).then(canvas => {
@@ -800,7 +864,7 @@ function LIST_All_GATE(){
       </tr>`);
       i++;
       });
-
+      
       
     }
   });
@@ -1099,6 +1163,15 @@ $( "#AddNewVistBtn" ).click(function(){
   $("#Visitoraction").val("insert");
   $("#visImgContainer").addClass('d-none');
   $("#visImgContainer").empty();
+  $("#visitormsgerror").addClass('d-none');
+  $("#visitormsgerror").text("");
+  $("#visname").val("");
+  $("#visadd").val("");
+  $("#visNid").val("");
+  $("#visjob").val("");
+  $("#visstatus").val("");
+  $('#visimg').prop("files")[0]="";
+  $("#reason_of_visit").val("");
 } );
   
 
@@ -1114,19 +1187,29 @@ $("#addvisitorFrm").on('submit', function(e){
   
   var action =$("#Visitoraction").val();
   var vid =$("#vid").val();
-  if(action == "insert"){
-    var form = new FormData();
-    form.append("visitor_img", $('#visimg').prop("files")[0]); // error for loop to get more than on file
-    form.append("name", visname);
-    form.append("address", visadd);
-    form.append("status", visstatus);
-    form.append("national_id", visNid);
-    form.append("job_title", visjob);
-    form.append("reason_of_visit", reason_of_visit);
-    CREATE_VISITOR(form);
-  }else if(action == "update"){
-    UPDATE_VISITOR(vid,visname,visadd,visNid,visjob,visstatus,reason_of_visit,visimg)
+  if(visname == "" || visadd =="" || visNid =="" || visjob =="" || visstatus =="" || reason_of_visit =="" ){
+    $("#visitormsgerror").removeClass('d-none');
+    $("#visitormsgerror").text("Enter All Form Data");
+  }else if(visimg== null){
+    $("#visitormsgerror").removeClass('d-none');
+    $("#visitormsgerror").text("Upload Visitor Image");
+  } else{
+    if(action == "insert"){
+      var form = new FormData();
+      form.append("visitor_img", $('#visimg').prop("files")[0]); // error for loop to get more than on file
+      form.append("name", visname);
+      form.append("address", visadd);
+      form.append("status", visstatus);
+      form.append("national_id", visNid);
+      form.append("job_title", visjob);
+      form.append("reason_of_visit", reason_of_visit);
+      CREATE_VISITOR(form);
+    }else if(action == "update"){
+      UPDATE_VISITOR(vid,visname,visadd,visNid,visjob,visstatus,reason_of_visit,visimg)
+    }
   }
+
+ 
   
 })
 
@@ -1150,8 +1233,9 @@ function CREATE_VISITOR(formdatat){
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
+        ErrorAlert(resArr.message);
+       
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
           window.location.href = 'sign-in.html';
@@ -1385,6 +1469,11 @@ $( "#addNewCarBtn" ).click(function(){
   $( "#CarAddHead" ).text( "Add New Car" );
   $("#caraction").val("insert");
   $("#carImgContainer").addClass('d-none');
+  $("#carmsgerror").addClass('d-none');
+  $("#carmsgerror").text('');
+  $("#carmodel").val("");
+  $("#carcolor").val("");
+  $("#carplate").val("");
 } );
   
 
@@ -1401,19 +1490,29 @@ $("#addcarFrm").on('submit', function(e){
   
   var action =$("#caraction").val();
   var carid =$("#carid").val();
-  if(action == "insert"){
-    var form = new FormData();
-    form.append("image", $('#carimg').prop("files")[0]); // error for loop to get more than on file
-    form.append("visitor", carvisitor);
-    form.append("plate_number", carplate);
-    form.append("color", carcolor);
-    form.append("model", carmodel);
-    form.append("status", carstatus);
-    
-    CREATE_CAR(form);
-  }else if(action == "update"){
-    UPDATE_CAR(carid,carmodel,carcolor,carplate,carvisitor,carstatus,carimg1)
+  if(carmodel=="" || carcolor=="" || carplate=="" || carvisitor=="0" || carstatus=="0" ){
+    $("#carmsgerror").removeClass('d-none');
+    $("#carmsgerror").text('Enter a Valid Data');
+  }else if(carimg1==null){
+    $("#carmsgerror").removeClass('d-none');
+    $("#carmsgerror").text('Select Car Image');
+  }else{
+    if(action == "insert"){
+        var form = new FormData();
+        form.append("image", $('#carimg').prop("files")[0]); // error for loop to get more than on file
+        form.append("visitor", carvisitor);
+        form.append("plate_number", carplate);
+        form.append("color", carcolor);
+        form.append("model", carmodel);
+        form.append("status", carstatus);
+        
+        CREATE_CAR(form);
+      }else if(action == "update"){
+        UPDATE_CAR(carid,carmodel,carcolor,carplate,carvisitor,carstatus,carimg1)
+      }
   }
+
+  
   
 })
 
@@ -1435,8 +1534,9 @@ function CREATE_CAR(formdatat){
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        ErrorAlert(jqXHR.responseText);
         var resArr= JSON.parse(jqXHR.responseText);
+        ErrorAlert(resArr.message);
+        
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
           window.location.href = 'sign-in.html';
@@ -1444,7 +1544,7 @@ function CREATE_CAR(formdatat){
 
     },
     success: function(data) {
-      SuccessAlert(data);
+      SuccessAlert(data.message);
       
       LIST_All_CAR()
     }
@@ -1642,6 +1742,14 @@ function LIST_All_USER(){
 $( "#AddNewUsertBtn" ).click(function(){
   $( "#UserAddHead" ).text( "Add New User" );
   $("#useraction").val("insert");
+  $("#usermsgerror").addClass("d-none");
+  $("#usermsgerror").text("");
+  $("#usrNname").val("");
+  $("#usrmail").val("");
+  $("#usrpass").val("");
+  $("#usrconpass").val("");
+  $("#camGateSlct2").val();
+
 } );
   
 
@@ -1695,13 +1803,17 @@ $("#adduserFrm").on('submit', function(e){
   console.log(newusr);
   var action =$("#useraction").val();
   var userid =$("#userid").val();
-  if(action == "insert"){
+  if(usrDname == "" || usrpass == "" || usrpass != usrconpass || usrmail ==""){
+    $("#usermsgerror").removeClass("d-none");
+    $("#usermsgerror").text("Please , Enter All Data In Form");
+  }else{
+    if(action == "insert"){
     
-    CREATE_USER(newusr);
-  }else if(action == "update"){
-    UPDATE_USER(userid,usrDname,usrpass,gates,usrmail,is_admin,is_operation,is_supervisor)
+      CREATE_USER(newusr);
+    }else if(action == "update"){
+      UPDATE_USER(userid,usrDname,usrpass,gates,usrmail,is_admin,is_operation,is_supervisor)
+    }
   }
-  
 })
 
 // $("#usrpass")
@@ -1733,7 +1845,12 @@ function CREATE_USER(userObj){
     // console.log(response);
     SuccessAlert(response.message);
     LIST_All_USER()
-  });
+  }).fail(function (jqXHR, textStatus, ex) { 
+        console.log(textStatus + "," + ex + "," + jqXHR.responseText);
+        var resArr= JSON.parse(jqXHR.responseText);
+        ErrorAlert(resArr.message);
+
+   });;
   
   
   
@@ -1909,8 +2026,13 @@ function LIST_All_CAMERA(){
 }
 
 $( "#AddNewCamtBtn" ).click(function(){
-  $( "#CameraAddHead" ).text( "Add New User" );
+  $( "#CameraAddHead" ).text( "Add New Camera" );
   $("#Cameraction").val("insert");
+  $("#cammsgerror").addClass("d-none");
+  $("#camname").val("");
+  $("#camdesc").val("");
+  $("#camurl").val("");
+  $("#camGateSlct1").val()
 } );
 
 $("#addcameraFrm").on('submit', function(e){
@@ -1929,15 +2051,30 @@ $("#addcameraFrm").on('submit', function(e){
   
   var action =$("#Cameraction").val();
   var cameraid =$("#cameraid").val();
-  if(action == "insert"){
+
+  if(camname =="" || camdesc =="" || camurl =="" || gates ==""){
+    $("#cammsgerror").removeClass("d-none");
+    $("#cammsgerror").text("Please Enter All Data");
+  }else if (!isUrlValid(camurl)){
+    $("#cammsgerror").removeClass("d-none");
+    $("#cammsgerror").text("Please Enter A valid URL as http://15.1.1.1");
+  }else{
+    if(action == "insert"){
     
-    CREATE_CAMERA(newcam);
-  }else if(action == "update"){
-    UPDATE_CAMERA(cameraid,camname,camurl,gates)
+      CREATE_CAMERA(newcam);
+    }else if(action == "update"){
+      UPDATE_CAMERA(cameraid,camname,camurl,gates)
+    }
   }
+
+
+  
   
 })
 
+function isUrlValid(url) {
+  return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
+}
 
 function CREATE_CAMERA(camObj){
   
@@ -1954,12 +2091,16 @@ function CREATE_CAMERA(camObj){
     },
     error: function(jqXHR, textStatus, ex) {
         console.log(textStatus + "," + ex + "," + jqXHR.responseText);
-        ErrorAlert(jqXHR.responseText);
+        
         var resArr= JSON.parse(jqXHR.responseText);
+        ErrorAlert(JSON.stringify(resArr.message));
+        
         if(resArr.message ==" This Staff is not exsits" || resArr.detail == 'Invalid Token'){
           localStorage.clear();
           window.location.href = 'sign-in.html';
         }
+        $("#cammsgerror").text("");
+        $("#cammsgerror").addClass("d-none");
 
     },
     success: function(data) {
@@ -2079,15 +2220,18 @@ function LIST_All_REPORTS(){
 
     },
     success: function(data) {
-      // console.log(data);
+      // console.log(data);00000000000000000000000000000
       $("#ReportTbl").empty();
-      $("#ReportTbl").append(`<tr>
-      <td>crationDate</td>
-      <td>from</td>
-      <td>to</td>
-      <td>Report type</td>
-      <td><a href="action/file" download="file" class="btn btn-info">Download</a></td>
-    </tr>`);
+      data.forEach(report => {
+        $("#ReportTbl").append(`<tr>
+          
+          <td>${report.start_at}</td>
+          <td>${report.end_at}</td>
+          <td>${report.report_type}</td>
+          <td><a href="${report.download_link}" download="file" class="btn btn-info">Download</a></td>
+        </tr>`);
+      });
+      
     }
   });  
 }
@@ -2135,12 +2279,17 @@ function Generate_REPORT(type_id,start,end){
     },
     success: function(data) {
       // console.log(data);
+      SuccessAlert("New Report Created successfuly")
       LIST_All_REPORTS();
     }
   });  
 }
 
-
+$("#clearrepeBtn").click(function(){
+  // $("#kt_daterangepicker_1").val();
+  $("#reportSlct").val("GATE");;
+  
+})
 /******************************* profile***************** */
 
 function GET_USER_PROFILE(userid){
@@ -2208,8 +2357,31 @@ $(".toggle-password").click(function() {
   }
 });
 
+$(".toggle-password1").click(function() {
+
+  $(this).toggleClass("fa-eye fa-eye-slash");
+  var input = $($(this).attr("toggle"));
+  var x = document.getElementById("usrconpass");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+});
+
 // GAlert('Success',)
 // GAlert('Error',)
 // GAlert('Warning',)
 // GAlert('Info',)
 // GAlert('Question',)
+
+$("#gatesearchtxt").keyup(function() {
+  // searchGates()
+  var query= $(this).val().toLowerCase();
+  $('div#GateList #searchToken').each(function(){
+    var $this = $(this);
+    if($this.text().toLowerCase().indexOf(query) === -1)
+        $this.closest('a.custom-list').fadeOut();
+   else $this.closest('a.custom-list').fadeIn();
+});
+});

@@ -20,22 +20,23 @@
 
 			<form method="post" class="form-horizontal login-form" id="kt_sign_in_form">
 				<div class="form-group relative">
-					<input id="usernametxt" name="usernametxt" class="form-control input-lg" type="text" placeholder=" " required>
+					<input id="usernametxt" name="usernametxt" class="form-control input-lg text-dark  bg-light" type="text" placeholder=" " required>
 					<i class="fa fa-user"></i>
 				</div>
 				<div class="form-group relative password">
-					<input id="passwordtxt" name="passwordtxt" class="form-control input-lg" type="password" placeholder=" " required>
+					<input id="passwordtxt" name="passwordtxt" class="form-control input-lg  text-dark bg-light" type="password" placeholder=" " required>
 					<i class="fa fa-lock"></i>
 				</div>
-			  <div class="form-group">
-			    <button type="submit" id="kt_sign_in_submit" class="btn btn-success btn-lg btn-block">Login</button>
-			  </div>
-        <div class="checkbox pull-left">
-			    <label><input type="checkbox" onclick="myFunction()"> Show password</label>
-			  </div>
-			  <div class="checkbox pull-right">
-			    <!-- <label> <a class="forget" href=""  title="forget">Show password</a> </label> -->
-			  </div>
+				<div class="checkbox pull-right">
+					<label><input type="checkbox" onclick="myFunction()"> Show password</label>
+				</div>
+				<div class="form-group">
+					<button type="submit" id="kt_sign_in_submit" class="btn btn-success btn-lg btn-block">Login</button>
+				</div>
+        		<div class="checkbox pull-left">
+			    	<label class="d-none text-danger text-justify" id="signerror"> error</label>
+			  	</div>
+				
 			</form>
 		</div>
     
