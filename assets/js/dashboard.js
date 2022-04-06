@@ -291,14 +291,20 @@ $("#tab-2").click(function(){
 $("#tab-3").click(function(){
   $("#pagelink").text("Reports");
   $("#pgTitle").text("Reports");
-  $("#asside-btn").addClass('opacity-1');
-  $("#asside-btn").removeClass('opacity-0');
+  
+  $("#asside-btn").addClass('opacity-0');
+  if(!$("#asside-btn").hasClass('active')){
+    $("#asside-btn").click()
+  }
 
 })
 $("#tab-4").click(function(){
   $("#pagelink").text("Gates Management");
   $("#pgTitle").text("Gates Management");
   $("#asside-btn").addClass('opacity-0');
+  if(!$("#asside-btn").hasClass('active')){
+    $("#asside-btn").click()
+  }
 })
 $("#tab-5").click(function(){
   $("#pagelink").text("Camera Management");
@@ -2403,3 +2409,9 @@ $("#camerasearchtxt").keyup(function() {
  
   });
 });
+
+function closeAside(){
+  if($("#asside-btn").hasClass('active')){
+    
+  }
+}
