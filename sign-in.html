@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="css/stylesheet.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/all.min.css">
-
+	<style>
+		body{
+				font-family: 'Lato', sans-serif !important;
+				src: url('assets/fonts/Lato-Light.ttf');
+			}
+	</style>
 </head>
 <div id="particles-js"></div>
 <body class="login">
@@ -16,15 +21,15 @@
 			<div class="logo">
 				<i class="fa fa-sign-in"></i>
 			</div>
-			<div class="welcome"><strong>Volume Security</strong> </div>
+			<div class="welcome"><strong style="font-family: 'FontAwesome';letter-spacing: 8px;">Volume Security</strong> </div>
 
-			<form method="post" class="form-horizontal login-form" id="kt_sign_in_form">
+			<form method="post" class="form-horizontal login-form pt-3" id="kt_sign_in_form">
 				<div class="form-group relative">
-					<input id="usernametxt" name="usernametxt" class="form-control input-lg text-dark  bg-light" type="text" placeholder=" " required>
+					<input id="usernametxt" placeholder="User Name" name="usernametxt" class="form-control input-lg text-dark  bg-light" type="text" placeholder=" " required>
 					<i class="fa fa-user"></i>
 				</div>
 				<div class="form-group relative password">
-					<input id="passwordtxt" name="passwordtxt" class="form-control input-lg  text-dark bg-light" type="password" placeholder=" " required>
+					<input id="passwordtxt" name="passwordtxt" placeholder="Password" class="form-control input-lg  text-dark bg-light" type="password" placeholder=" " required>
 					<i class="fa fa-lock"></i>
 				</div>
 				<div class="checkbox pull-right">

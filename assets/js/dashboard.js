@@ -952,7 +952,7 @@ function LIST_CAMERA(){
          <!--begin::Description-->
          <div class="d-flex flex-column flex-grow-1">
            <!--begin::Title-->
-           <h5 class="custom-list-title fw-bold text-gray-800 mb-1">${cam.name}</h5>
+           <h5 id="CamsearchToken" class="custom-list-title fw-bold text-gray-800 mb-1">${cam.name}</h5>
            <!--end::Title-->
            <!--begin::Link-->
            <span class="text-gray-400 fw-bold">${cam.description}</span>
@@ -2380,8 +2380,26 @@ $("#gatesearchtxt").keyup(function() {
   var query= $(this).val().toLowerCase();
   $('div#GateList #searchToken').each(function(){
     var $this = $(this);
-    if($this.text().toLowerCase().indexOf(query) === -1)
-        $this.closest('a.custom-list').fadeOut();
-   else $this.closest('a.custom-list').fadeIn();
+    if($this.text().toLowerCase().indexOf(query) === -1){
+      $this.closest('a.custom-list').addClass('d-none');
+    }else{
+      $this.closest('a.custom-list').removeClass('d-none');
+    } 
+ 
+  });
 });
+
+
+$("#camerasearchtxt").keyup(function() {
+  // searchGates()
+  var query= $(this).val().toLowerCase();
+  $('div#CameraList #CamsearchToken').each(function(){
+    var $this = $(this);
+    if($this.text().toLowerCase().indexOf(query) === -1){
+      $this.closest('a.custom-list').addClass('d-none');
+    }else{
+      $this.closest('a.custom-list').removeClass('d-none');
+    } 
+ 
+  });
 });
