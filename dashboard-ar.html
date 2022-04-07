@@ -23,7 +23,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>	
 		<!-- <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap" rel="stylesheet"> -->
-		
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 		<link rel="stylesheet" href="assets/css/snipper.css">
 		<style>
 			body{
@@ -539,7 +539,7 @@
 													<!--begin::Projects-->
 													<div class="m-0">
 														<!--begin::Heading-->
-														<h1 class="text-gray-800 fw-bold mb-6 mx-5"> <a href="#" onclick="LIST_CAMERA()">Camera</a></h1>
+														<h1 class="text-gray-800 fw-bold mb-6 mx-5"> <a href="#" onclick="LIST_CAMERA()">الكاميرات</a></h1>
 														<!--end::Heading-->
 														<!--begin::Items-->
 														<div class="mb-10" id="CameraList">
@@ -1134,7 +1134,7 @@
 									<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-muted menu-active-bg menu-state-primary fw-bold py-4 fs-6 w-200px" data-kt-menu="true">
 										<!--begin::Menu item-->
 										<div class="menu-item px-3 my-1">
-											<a href="dashboard.html" class="menu-link px-3 active">
+											<a href="dashboard.html" class="menu-link px-3 ">
 												<span class="menu-icon">
 													<!-- <i class=" fs-2"></i> -->
 													<img class="img-fluid" src="assets/media/svg/en.svg" alt="">
@@ -1145,7 +1145,7 @@
 										<!--end::Menu item-->
 										<!--begin::Menu item-->
 										<div class="menu-item px-3 my-1">
-											<a href="dashboard-ar.html" class="menu-link px-3">
+											<a href="dashboard-ar.html" class="menu-link px-3 active">
 												<span class="menu-icon">
 													<!-- <i class="fs-2"></i> -->
 													<img src="assets/media/svg/ar.svg" alt="">
@@ -4693,7 +4693,8 @@
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
   		<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
-		
+		<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 		<script src="assets/js/dashboard.js"></script>
 		<!--end::Javascript-->
 	</body>
@@ -4701,6 +4702,8 @@
 
 <script>
 	$(document).ready(function(){
+
+		// $("table").DataTable();
 		// const swal = require('sweetalert2')
 		$("#kt_daterangepicker_1").daterangepicker();
 		ImgUpload();

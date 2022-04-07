@@ -293,6 +293,7 @@ $("#tab-3").click(function(){
   $("#pgTitle").text("Reports");
   
   $("#asside-btn").addClass('opacity-0');
+  $("#asside-btn").addClass('active');
   if(!$("#asside-btn").hasClass('active')){
     $("#asside-btn").click()
   }
@@ -301,6 +302,7 @@ $("#tab-3").click(function(){
 $("#tab-4").click(function(){
   $("#pagelink").text("Gates Management");
   $("#pgTitle").text("Gates Management");
+  $("#asside-btn").addClass('active');
   $("#asside-btn").addClass('opacity-0');
   if(!$("#asside-btn").hasClass('active')){
     $("#asside-btn").click()
@@ -310,6 +312,7 @@ $("#tab-5").click(function(){
   $("#pagelink").text("Camera Management");
   $("#pgTitle").text("Camera Management");
   $("#asside-btn").addClass('opacity-0');
+  $("#asside-btn").addClass('active');
   if(!$("#asside-btn").hasClass('active')){
     $("#asside-btn").click()
   }
@@ -318,6 +321,7 @@ $("#tab-6").click(function(){
   $("#pagelink").text("Users");
   $("#pgTitle").text("Users");
   $("#asside-btn").addClass('opacity-0');
+  $("#asside-btn").addClass('active');
   if(!$("#asside-btn").hasClass('active')){
     $("#asside-btn").click()
   }
@@ -326,6 +330,7 @@ $("#tab-7").click(function(){
   $("#pagelink").text("Visitor");
   $("#pgTitle").text("Visitor");
   $("#asside-btn").addClass('opacity-0');
+  $("#asside-btn").addClass('active');
   if(!$("#asside-btn").hasClass('active')){
     $("#asside-btn").click()
   }
@@ -334,6 +339,7 @@ $("#tab-8").click(function(){
   $("#pagelink").text("Cars");
   $("#pgTitle").text("Cars");
   $("#asside-btn").addClass('opacity-0');
+  $("#asside-btn").addClass('active');
   if(!$("#asside-btn").hasClass('active')){
     $("#asside-btn").click()
   }
@@ -342,6 +348,7 @@ $("#tab-9").click(function(){
   $("#pagelink").text("Profile");
   $("#pgTitle").text("Profile");
   $("#asside-btn").addClass('opacity-0');
+  $("#asside-btn").addClass('active');
   if(!$("#asside-btn").hasClass('active')){
     $("#asside-btn").click()
   }
