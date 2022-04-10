@@ -175,7 +175,7 @@
 					<div class="aside-primary d-flex flex-column align-items-lg-center flex-row-auto">
 						<!--begin::Logo-->
 						<div class="aside-logo d-none d-lg-flex flex-column align-items-center flex-column-auto py-10" id="kt_aside_logo">
-							<a href="dashboard-ar.html">
+							<a href="dashboard-Dar.html">
 								<img alt="Logo" src="http://62.171.150.125/assets/images/logo.svg" class="h-35px" />
 							</a>
 						</div>
@@ -1020,7 +1020,7 @@
 								<!--begin::Breadcrumb-->
 								<ul class="breadcrumb fw-bold fs-base my-1">
 									<li class="breadcrumb-item text-muted">
-										<a href="dashboard-ar.html" class="text-muted">Home</a>
+										<a href="dashboard-Dar.html" class="text-muted">Home</a>
 									</li>
 									<!-- <li class="breadcrumb-item text-muted">Dashboards</li> -->
 									<li class="breadcrumb-item text-dark" id="pagelink">Page Link</li>
@@ -1043,7 +1043,7 @@
 								</div>
 								<!--end::Aside mobile toggle-->
 								<!--begin::Logo-->
-								<a href="dashboard-ar.html" class="d-flex align-items-center">
+								<a href="dashboard-Dar.html" class="d-flex align-items-center">
 									<img alt="Logo" src="assets/media/logos/logo-demo7.svg" class="h-30px" />
 								</a>
 								<!--end::Logo-->
@@ -1106,7 +1106,7 @@
 										<!--end::Menu item-->
 										<!--begin::Menu item-->
 										<div class="menu-item px-3 my-1">
-											<a href="dashboard-ar-dark.html" class="menu-link px-3">
+											<a href="dashboard-Dar-dark.html" class="menu-link px-3">
 												<span class="menu-icon">
 													<i class="fonticon-moon fs-2"></i>
 												</span>
@@ -1119,7 +1119,7 @@
 								</div>
 								<div class="d-none d-flex align-items-center ms-3 form-check form-switch">
 									
-									<input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="mode" id="kt_user_menu_dark_mode_toggle" data-kt-url="dashboard-dark.html">
+									<input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="mode" id="kt_user_menu_dark_mode_toggle" onclick='OpenURL("dashboard-ar.html")'>
 									<span class="form-check-label text-gray-600 fs-7">Dark Mode</span>
 								  </div>
 								<!--end::Theme mode-->
@@ -1207,7 +1207,7 @@
 										<div class="menu-item px-5">
 											<div class="menu-content px-5">
 												<label class="form-check form-switch form-check-custom form-check-solid pulse pulse-success" for="kt_user_menu_dark_mode_toggle">
-													<input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="mode" id="kt_user_menu_dark_mode_toggle" data-kt-url="dashboard-ar-dark.html" />
+													<input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="mode" id="kt_user_menu_dark_mode_toggle" onclick='OpenURL("dashboard-ar.html")' />
 													<span class="pulse-ring ms-n1"></span>
 													<span class="form-check-label text-gray-600 fs-7">Dark Mode</span>
 												</label>
@@ -4817,6 +4817,9 @@ function QuestionAlert(msg){
 				msg,
 				'question'
 			)
+}
+function OpenURL(url){
+	window.location.href = url;
 }
 </script>
 </html>
