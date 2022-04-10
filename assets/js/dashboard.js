@@ -65,6 +65,7 @@ $("#addnewGateBtn").click(function(e){
 
 
 function auth(){
+  // $("#kt_body").addClass('overflow-hidden')
   let userId = localStorage.getItem('User');
   $.ajax({
     type: "GET",
@@ -111,6 +112,7 @@ function auth(){
         $("body").removeClass("overflow-hidden");
         $(".bodyCont").removeClass("d-none");
         $(".loaders").addClass("d-none");
+        $("#kt_body").removeClass('overflow-hidden')
         LIST_CAMERA()
         
         if(data.is_admin){
