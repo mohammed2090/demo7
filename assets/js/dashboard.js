@@ -4,7 +4,10 @@ var Apphost = "http://147.182.164.139:8000/";
 
 $(document).ready(function(){
     // get();
-    
+    $(window).resize(function() {
+      $("#asside-btn").addClass('opacity-1');
+      $("#asside-btn").removeClass('opacity-0');
+    });
     $("#pagelink").text("Dashboard")
     $("body").addClass("overflow-hidden");
     $(".bodyCont").addClass("d-none");
