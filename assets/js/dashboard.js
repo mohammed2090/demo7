@@ -550,6 +550,8 @@ function CREATE_GATE(name,desc){
       $("#gateDesc").val("");
       LIST_GATE()
       LIST_All_GATE()
+      LIST_All_CAMERA()
+      LIST_CAMERA()
     }
   });
   
@@ -968,61 +970,97 @@ function LIST_CAMERA(){
        console.log(data);
        $("#CameraDiv").empty();
        $("#CameraList").empty();
-       data.results.forEach(cam => {
-         $("#CameraList").append(`<a href="#" onclick="openCamera(${cam.id})" class="custom-list d-flex align-items-center px-5 py-4">
-         <!--begin::Symbol-->
-         <div class="symbol symbol-40px me-5">
-           <span class="symbol-label">
-             <img src="assets/media/svg/camera/cctv-camera.png" class="h-50 align-self-center" alt="" />
-           </span>
-         </div>
-         <!--end::Symbol-->
-         <!--begin::Description-->
-         <div class="d-flex flex-column flex-grow-1">
-           <!--begin::Title-->
-           <h5 id="CamsearchToken" class="custom-list-title fw-bold text-gray-800 mb-1">${cam.name}</h5>
-           <!--end::Title-->
-           <!--begin::Link-->
-           <span class="text-gray-400 fw-bold">${cam.description}</span>
-           <!--end::Link-->
-         </div>
-         <!--begin::Description-->
-       </a>`);
+       if(data.results.length > 0){
+          data.results.forEach(cam => {
+            $("#CameraList").append(`<a href="#" onclick="openCamera(${cam.id})" class="custom-list d-flex align-items-center px-5 py-4">
+            <!--begin::Symbol-->
+            <div class="symbol symbol-40px me-5">
+              <span class="symbol-label">
+                <img src="assets/media/svg/camera/cctv-camera.png" class="h-50 align-self-center" alt="" />
+              </span>
+            </div>
+            <!--end::Symbol-->
+            <!--begin::Description-->
+            <div class="d-flex flex-column flex-grow-1">
+              <!--begin::Title-->
+              <h5 id="CamsearchToken" class="custom-list-title fw-bold text-gray-800 mb-1">${cam.name}</h5>
+              <!--end::Title-->
+              <!--begin::Link-->
+              <span class="text-gray-400 fw-bold">${cam.description}</span>
+              <!--end::Link-->
+            </div>
+            <!--begin::Description-->
+          </a>`);
 
-       $("#CameraDiv").append(`<div class="col-lg-6" id="cam${cam.id}">
-       <!--begin::Summary-->
-       <div class="card card-flush h-lg-100">
-         <!--begin::Card header-->
-         <div class="card-header mt-6">
-           <!--begin::Card title-->
-           <div class="card-title flex-column">
-             
-             <h3 class="fw-bolder mb-1">${cam.name}</h3>
-             <div class="fs-6 fw-bold text-gray-400">${cam.description}</div>
-           </div>
-           <!--end::Card title-->
-           <!--begin::Card toolbar-->
-           <div tooltip="FullScreen" class="card-toolbar">
-             <a href="#" onClick="javascript:ToggleFull(cam${cam.id})" tooltip="FullScreen" class="btn btn-light btn-sm"><i class="fa fa-arrows-alt"></i></a>
-             
-           </div>
-           <!--end::Card toolbar-->
-         </div>
-         <!--end::Card header-->
-         <!--begin::Card body-->
-         <div class="card-body p-9 pt-5">
-           <!--begin::Wrapper-->
-           <!-- <iframe src="http://localhost/demo7/report.html" class="w-100" frameborder="0"></iframe> -->
-           <div class="Camcontainer" >
-               <iframe seamless src="${cam.url}" class="videoElement w-100 " frameborder="0"></iframe>  
-                 <video autoplay="true" class="videoElement d-none"></video>
-           </div>
-         </div>
-         <!--end::Card body-->
-       </div>
-       <!--end::Summary-->
-     </div>`)
-       });
+          $("#CameraDiv").append(`<div class="col-lg-6" id="cam${cam.id}">
+          <!--begin::Summary-->
+          <div class="card card-flush h-lg-100">
+            <!--begin::Card header-->
+            <div class="card-header mt-6">
+              <!--begin::Card title-->
+              <div class="card-title flex-column">
+                
+                <h3 class="fw-bolder mb-1">${cam.name}</h3>
+                <div class="fs-6 fw-bold text-gray-400">${cam.description}</div>
+              </div>
+              <!--end::Card title-->
+              <!--begin::Card toolbar-->
+              <div tooltip="FullScreen" class="card-toolbar">
+                <a href="#" onClick="javascript:ToggleFull(cam${cam.id})" tooltip="FullScreen" class="btn btn-light btn-sm"><i class="fa fa-arrows-alt"></i></a>
+                
+              </div>
+              <!--end::Card toolbar-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body p-9 pt-5">
+              <!--begin::Wrapper-->
+              <!-- <iframe src="http://localhost/demo7/report.html" class="w-100" frameborder="0"></iframe> -->
+              <div class="Camcontainer" >
+                  <iframe seamless src="${cam.url}" class="videoElement w-100 " frameborder="0"></iframe>  
+                    <video autoplay="true" class="videoElement d-none"></video>
+              </div>
+            </div>
+            <!--end::Card body-->
+          </div>
+          <!--end::Summary-->
+          </div>`)
+          });
+        }else{
+          $("#CameraDiv").append(`<div class="col-lg-6" id="cam0">
+          <!--begin::Summary-->
+          <div class="card card-flush h-lg-100">
+            <!--begin::Card header-->
+            <div class="card-header mt-6">
+              <!--begin::Card title-->
+              <div class="card-title flex-column">
+                
+                <h3 class="fw-bolder mb-1">No Camera</h3>
+                <div class="fs-6 fw-bold text-gray-400"></div>
+              </div>
+              <!--end::Card title-->
+              <!--begin::Card toolbar-->
+              <div tooltip="FullScreen" class="card-toolbar">
+                <a href="#" onClick="javascript:ToggleFull(cam0)" tooltip="FullScreen" class="btn btn-light btn-sm"><i class="fa fa-arrows-alt"></i></a>
+                
+              </div>
+              <!--end::Card toolbar-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body p-9 pt-5">
+              <!--begin::Wrapper-->
+              <!-- <iframe src="http://localhost/demo7/report.html" class="w-100" frameborder="0"></iframe> -->
+              <div class="Camcontainer" >
+                  <iframe seamless src="" class="videoElement w-100 " frameborder="0"></iframe>  
+                    <video autoplay="true" class="videoElement d-none"></video>
+              </div>
+            </div>
+            <!--end::Card body-->
+          </div>
+          <!--end::Summary-->
+          </div>`)
+        }
      }
    });
  }
@@ -2006,49 +2044,51 @@ function LIST_All_CAMERA(){
       $("#CamC").text(data.count);
       
       var i=1;
-      data.results.forEach(cam => {
-       
-        $("#CamTbl").append(`
-                      <tr>
-												<td>${i}</td>
-												<td>
-                        ${cam.gate_name}
-												</td>
-												
-												<td>${cam.name}</td>
-												<td>${cam.description}</td>
-												<td>${cam.url}</td>
-												
-                        <td>
+      if(data.results.length > 0){
+        data.results.forEach(cam => {
+        
+          $("#CamTbl").append(`
+                        <tr>
+                          <td>${i}</td>
+                          <td>
+                          ${cam.gate_name}
+                          </td>
                           
-                          <a href="#" onclick='editCam(${JSON.stringify(cam)})' class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                            <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
-                            <span class="svg-icon svg-icon-3">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path opacity="0.3" d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z" fill="black"></path>
-                                <path d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z" fill="black"></path>
-                              </svg>
-                            </span>
-                            <!--end::Svg Icon-->
-                          </a>
-                        </td>
-                        <td>
-                          <!-- <i class="fa fa-trash-alt text-danger"></i> -->
-                          <a href="#" onclick="deleteCam(${cam.id},'${cam.name}')"  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
-                            <span class="svg-icon svg-icon-3">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="black"></path>
-                                <path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="black"></path>
-                                <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="black"></path>
-                              </svg>
-                            </span>
-                            <!--end::Svg Icon-->
-                          </a>
-                        </td>
-                      </tr>`);
-      i++;
-      });
+                          <td>${cam.name}</td>
+                          <td>${cam.description}</td>
+                          <td>${cam.url}</td>
+                          
+                          <td>
+                            
+                            <a href="#" onclick='editCam(${JSON.stringify(cam)})' class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                              <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
+                              <span class="svg-icon svg-icon-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                  <path opacity="0.3" d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z" fill="black"></path>
+                                  <path d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z" fill="black"></path>
+                                </svg>
+                              </span>
+                              <!--end::Svg Icon-->
+                            </a>
+                          </td>
+                          <td>
+                            <!-- <i class="fa fa-trash-alt text-danger"></i> -->
+                            <a href="#" onclick="deleteCam(${cam.id},'${cam.name}')"  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                              <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
+                              <span class="svg-icon svg-icon-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                  <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="black"></path>
+                                  <path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="black"></path>
+                                  <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="black"></path>
+                                </svg>
+                              </span>
+                              <!--end::Svg Icon-->
+                            </a>
+                          </td>
+                        </tr>`);
+        i++;
+        });
+      }
     }
   });  
 }
@@ -2091,7 +2131,7 @@ $("#addcameraFrm").on('submit', function(e){
     
       CREATE_CAMERA(newcam);
     }else if(action == "update"){
-      UPDATE_CAMERA(cameraid,camname,camurl,gates)
+      UPDATE_CAMERA(cameraid,camname,camurl,gates,camdesc)
     }
   }
 
@@ -2135,6 +2175,8 @@ function CREATE_CAMERA(camObj){
       SuccessAlert(data.message);
       LIST_All_CAMERA();
       LIST_All_GATE();
+      LIST_GATE();
+      LIST_CAMERA();
     }
   });
   
@@ -2146,7 +2188,7 @@ function editCam(cam){
   $("#Cameraction").val("update");
 
   $("#camname").val(cam.name);
-  // $("#camdesc").val(car.color);
+  $("#camdesc").val(cam.description);
   $("#camurl").val(cam.url);
   $("#camGateSlct1").val(cam.gate).trigger('change');
   
@@ -2155,11 +2197,12 @@ function editCam(cam){
 
 }
 
-function UPDATE_CAMERA(cameraid,camname,camurl,gates){
+function UPDATE_CAMERA(cameraid,camname,camurl,gates,camdesc){
   var newcam={
     "name": camname,
     "url": camurl,
-    "gate": gates
+    "gate": gates ,
+    "description" : camdesc
 };
 $.ajax({
   type: "PUT",
