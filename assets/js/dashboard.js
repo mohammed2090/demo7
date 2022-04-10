@@ -1858,7 +1858,7 @@ $("#adduserFrm").on('submit', function(e){
   var newusr={
     "username": usrDname,
     "password": usrpass,
-    "gate_ids": [1,2],
+    "gate_ids": gatelist,
     "email": usrmail,
     "is_active": usrActive,
     "is_admin": is_admin,
